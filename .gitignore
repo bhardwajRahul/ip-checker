@@ -1,0 +1,18 @@
+# Environment Variables
+*.env
+
+# MacOS Files
+*.DS_Store
+
+# Last IP
+*/last_ip.txt
+
+# Byte-compiled
+*/__pycache__/
+*.py[cod]
+
+# Virtual Env
+venv/
+
+# Logs
+*.log

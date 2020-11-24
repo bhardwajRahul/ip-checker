@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+    requester:
+        container_name: ip_checker
+        build:
+            context: .
+        restart: unless-stopped
+        volumes:
+            - last_ip:/ip-checker/src/
+        env_file:
+            - .env
+
+volumes:
+    last_ip:
