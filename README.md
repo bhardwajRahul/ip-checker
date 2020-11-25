@@ -39,18 +39,18 @@ The system is a very simple python script that uses [amazon AWS](https://checkip
 
 #### Prerequisites
 
-To maximize compatbility, you will only need [docker](https://www.docker.com/) to be installed on your computer. But if you wish to not run it as a container, feel free to check [requirements.txt](requirements.txt) file and run it as a separate service, just `cd` into the [src](/src) folder and run `python3 run.py`.
+To maximize compatbility, you will only need [docker](https://www.docker.com/) and docker-compose to be installed on your computer. But if you wish to not run it as a container, feel free to check [requirements.txt](requirements.txt) file and run it as a separate service, just `cd` into the [src](/src) folder and run `python3 run.py`. Make sure to edit the `run.py` file and set your own variables.
 
-For the notifications, you will need an e-mail to be used as the notificator as well as a configured Telegram Bot. Remember to allow less secure apps on the e-mail end. For the Telegram Bot, you'll need 2 things: the Chat ID of the people that will receive the
+For the notifications, you will need an e-mail to be used as the "notificator" as well as a configured Telegram Bot. Remember to allow less secure apps on the e-mail end. For the Telegram Bot, you'll need 2 things: the Chat ID of the people that will receive the
 notification, as well as the bot ID. You can learn about them [here](https://core.telegram.org/bots).
 
 #### Instalation
 
-Since the script is containerized, just run `git pull https://github.com/LombardiDaniel/ip-checker`, `cd ip-checker`.
+Since the script is containerized, just run `git pull https://github.com/LombardiDaniel/ip-checker`, `cd ip-checker`. Create a `.env` file with the variables described below.
 
 ### Usage
 
-The only configuration needed is to set the environment variables in the `.env` file. Configure your email and/or Telegram key in the `.env` file (separate multiple addresses by using `,`) and run `docker-compose up --build -d`.
+The only configuration needed is to set the environment variables in the `.env` file. Configure your email and/or Telegram key in the `.env` file (separate multiple addresses by using `,`) and run `docker-compose up -d`. It logs to `stdout`, so you can easily check the logs via [portainer](https://www.portainer.io).
 
 |    Variable Name    | Meaning                                     | Separator |
 | :-----------------: | ------------------------------------------- | :-------: |

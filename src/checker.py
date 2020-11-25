@@ -1,4 +1,3 @@
-import os
 import smtplib
 
 from datetime import datetime
@@ -25,7 +24,12 @@ class CheckerIP():
         - reading last knows ip to .txt file
 
     Args:
-        None.
+        sender_email (str): E-mail used to send out notifications via email
+        sender_email_pass (str): sender_email password
+        telegram_bot_token (str): token of the telegram bot that will be used to
+            send out notifications via telegram
+        mail_list (lst of str): list of emails to notify via email.
+        telegram_list (lst of str): list of chat_ids to notify via telegram.
 
     Attributes:
         ip (str): current IPv4 of device
@@ -37,14 +41,14 @@ class CheckerIP():
             Both are lists of chat_ids/mails to send out notifications to.
     '''
 
-    def __init__(self):
+    def __init__(self, dender_email, sender_email_pass, telegam_bot_token, mail_list, telegram_list):
         self.ip = self.get_ip()
-        self.sender_email = os.environ.get('EMAIL_HOST_USER')
-        self.sender_email_pass = os.environ.get('EMAIL_HOST_PASSWORD')
-        self.telegram_bot_token = os.environ.get('TELEGRAM_BOT_KEY')
+        self.sender_email = dender_email
+        self.sender_email_pass = sender_email_pass
+        self.telegram_bot_token = telegam_bot_token
         self.alert_list = {
-            'mail': os.environ.get('MAIL_LIST').split(','),
-            'telegram': os.environ.get('TELEGRAM_CHAT_LIST').split(','),
+            'mail': mail_list,
+            'telegram': telegram_list,
         }
 
     def save_ip(self):
@@ -60,7 +64,8 @@ class CheckerIP():
         with open('./last_ip.txt', 'w') as file:
             file.write(f'{self.ip}')
 
-    def read_ip(self):
+    @staticmethod
+    def read_ip():
         '''
         Reads the last known IP from the `./last_ip.txt` file.
 
