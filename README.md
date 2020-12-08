@@ -55,7 +55,7 @@ The only configuration needed is to set the environment variables in the `.env` 
 |    Variable Name    | Meaning                                     | Separator |
 | :-----------------: | ------------------------------------------- | :-------: |
 |      MAIL_LIST      | List of emails to send notifications to     |    `,`    |
-|    TELEGRAM_LIST    | List of chat keys to send notifications to  |    `,`    |
+|  TELEGRAM_CHAT_LIST | List of chat keys to send notifications to  |    `,`    |
 |   TELEGRAM_BOT_KEY  | Bot API  Keys to send notifications to      |     -     |
 |   EMAIL_HOST_USER   | E-mail that will be used to send out emails |     -     |
 | EMAIL_HOST_PASSWORD | Password of Host e-mail                     |     -     |

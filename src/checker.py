@@ -113,7 +113,8 @@ class CheckerIP():
         msg['Subject'] = 'IP Change of Pi-VPN'
         msg['From'] = self.sender_email
         msg['To'] = to_mail
-        msg.set_content(f'The IP of your Pi-VPN has changed, new IP:\n{self.ip}\n\nWith love,\nRaspberry-Pi.')
+        msg.set_content(f'The IP of your Pi-VPN has changed, new IP:\n{self.ip}\
+        \n\nWith love,\nRaspberry-Pi.')
 
         with smtplib.SMTP_SSL(smtp_server, port) as smtp:
             smtp.login(self.sender_email, self.sender_email_pass)
