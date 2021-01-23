@@ -31,9 +31,9 @@
 
 ### About the Project
 
-The idea behind this repo is a simple way to guarantee that you'll always able to connect to you [PiVPN](https://www.pivpn.io) even if your internet provider changes you public IP. By sending a notification via e-mail and/or Telegram whenever the IP of you Raspberry Pi changes, you'll never be left out of your home internet!
+The idea behind this repo is a simple way to guarantee that you'll always able to connect to you [PiVPN](https://www.pivpn.io) even if your internet provider changes your public IP. By sending a notification via e-mail and/or Telegram whenever the IP of you Raspberry Pi changes, you'll never be left out of your home network!
 
-The system is a very simple python script that uses [amazon AWS](https://checkip.amazonaws.com) to get the current IPv4 Address of the device (must be running in the same machine as the VPN) it's running in.
+The system is a very simple python script that uses [amazon AWS](https://checkip.amazonaws.com) to get the current IPv4 Address of the device (must be running in the same machine as the VPN).
 
 ### Getting Started
 
