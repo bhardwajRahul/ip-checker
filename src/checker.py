@@ -1,8 +1,4 @@
-import smtplib
-
 from datetime import datetime
-
-from email.message import EmailMessage
 
 import requests
 
@@ -24,30 +20,22 @@ class CheckerIP():
         - reading last knows ip to .txt file
 
     Args:
-        sender_email (str): E-mail used to send out notifications via email
-        sender_email_pass (str): sender_email password
         telegram_bot_token (str): token of the telegram bot that will be used to
             send out notifications via telegram
-        mail_list (lst of str): list of emails to notify via email.
         telegram_list (lst of str): list of chat_ids to notify via telegram.
 
     Attributes:
         ip (str): current IPv4 of device
-        sender_email (str): E-mail used to send out notifications via email
-        sender_email_pass (str): sender_email password
         telegram_bot_token (str): token of the telegram bot that will be used to
             send out notifications via telegram
-        alert_list (disct): dictionary containing 2 lists, 'mail' and 'telegram'.
-            Both are lists of chat_ids/mails to send out notifications to.
+        alert_list (disct): dictionary containing a list (key='telegram') of
+            chat_ids to send out notifications to.
     '''
 
-    def __init__(self, dender_email, sender_email_pass, telegam_bot_token, mail_list, telegram_list):
+    def __init__(self, telegam_bot_token, telegram_list):
         self.ip = self.get_ip()
-        self.sender_email = dender_email
-        self.sender_email_pass = sender_email_pass
         self.telegram_bot_token = telegam_bot_token
         self.alert_list = {
-            'mail': mail_list,
             'telegram': telegram_list,
         }
 
@@ -90,36 +78,8 @@ class CheckerIP():
             None.
         '''
 
-        for mail in self.alert_list['mail']:
-            self._mail(mail)
-
         for chat in self.alert_list['telegram']:
             self._telegram(chat)
-
-    def _mail(self, to_mail):
-        '''
-        Sends out an email warning about IP change.
-
-        Args:
-            None.
-
-        Returns:
-            None.
-        '''
-        smtp_server = 'smtp.gmail.com'
-        port = 465
-
-        msg = EmailMessage()
-        msg['Subject'] = 'IP Change of Pi-VPN'
-        msg['From'] = self.sender_email
-        msg['To'] = to_mail
-        msg.set_content(f'The IP of your Pi-VPN has changed, new IP:\n{self.ip}\
-        \n\nWith love,\nRaspberry-Pi.')
-
-        with smtplib.SMTP_SSL(smtp_server, port) as smtp:
-            smtp.login(self.sender_email, self.sender_email_pass)
-            smtp.send_message(msg)
-
 
     def _telegram(self, chat_id):
         '''
@@ -133,15 +93,18 @@ class CheckerIP():
         '''
 
         text = f'Pi-VPN IP Change:\n{self.ip}'
+
         url = f'https://api.telegram.org/bot{self.telegram_bot_token}/sendMessage'
         url += f'?chat_id={chat_id}&text={text}'
 
         r = requests.get(url)
 
         if r.status_code != 200:
-            docker_log(lvl='ERROR', msg=f'Error when trying to send Telegam Message,\
-            check your TELEGRAM_CHAT_LIST and TELEGRAM_BOT_KEY ENV variables.\
-            CHAT_NUM={chat_id}')
+            msg = ''
+            msg += 'Error when trying to send Telegam Message, '
+            msg += 'check your TELEGRAM_CHAT_LIST and TELEGRAM_BOT_KEY ENV variables. '
+            msg += f'CHAT_ID={chat_id}'
+            docker_log(lvl='ERROR', msg=msg)
 
 
     @staticmethod

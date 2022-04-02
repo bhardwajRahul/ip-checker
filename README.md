@@ -31,7 +31,7 @@
 
 ### About the Project
 
-The idea behind this repo is a simple way to guarantee that you'll always able to connect to you [PiVPN](https://www.pivpn.io) even if your internet provider changes your public IP (made in case you wish to not use a static ip service). By sending a notification via e-mail and/or Telegram whenever the IP of you Raspberry Pi changes, you'll never be left out of your home network!
+The idea behind this repo is a simple way to guarantee that you'll always able to connect to you [PiVPN](https://www.pivpn.io) even if your internet provider changes your public IP (made in case you wish to not use a static ip service). By sending a notification via Telegram whenever the IP of you Raspberry Pi changes, you'll never be left out of your home network!
 
 The system is a very simple python script that uses [amazon AWS](https://checkip.amazonaws.com) to get the current IPv4 Address of the device (must be running in the same machine as the VPN).
 
@@ -41,8 +41,7 @@ The system is a very simple python script that uses [amazon AWS](https://checkip
 
 To maximize compatbility, you will only need [docker](https://www.docker.com/) and docker-compose to be installed on your computer. But if you wish to not run it as a container, feel free to check [requirements.txt](requirements.txt) file and run it as a separate service, just `cd` into the [src](/src) folder and run `python3 run.py`. Make sure to edit the `run.py` file and set your own variables.
 
-For the notifications, you will need an e-mail to be used as the "notificator" as well as a configured Telegram Bot. Remember to allow less secure apps on the e-mail end. For the Telegram Bot, you'll need 2 things: the Chat ID of the people that will receive the
-notification, as well as the bot ID. You can learn about them [here](https://core.telegram.org/bots).
+For the notifications, you will need a configured Telegram Bot. For the Telegram Bot, you'll need 2 things: the Chat ID of the people that will receive the notification, as well as the bot ID. You can learn about them [here](https://core.telegram.org/bots).
 
 #### Instalation
 
@@ -50,15 +49,12 @@ Since the script is containerized, just run `git pull https://github.com/Lombard
 
 ### Usage
 
-The only configuration needed is to set the environment variables in the `.env` file. Configure your email and/or Telegram key in the `.env` file (separate multiple addresses by using `,`) and run `docker-compose up -d`. It logs to `stdout`, so you can easily check the logs via [portainer](https://www.portainer.io).
+The only configuration needed is to set the environment variables in the `.env` file. Configure your Telegram key in the `.env` file (separate multiple addresses by using `,`) and run `docker-compose up -d`. It logs to `stdout`, so you can easily check the logs via [portainer](https://www.portainer.io).
 
-|    Variable Name    | Meaning                                     | Separator |
-| :-----------------: | ------------------------------------------- | :-------: |
-|      MAIL_LIST      | List of emails to send notifications to     |    `,`    |
-|  TELEGRAM_CHAT_LIST | List of chat keys to send notifications to  |    `,`    |
-|   TELEGRAM_BOT_KEY  | Bot API  Keys to send notifications to      |     -     |
-|   EMAIL_HOST_USER   | E-mail that will be used to send out emails |     -     |
-| EMAIL_HOST_PASSWORD | Password of Host e-mail                     |     -     |
+|    Variable Name   | Meaning                                    | Separator |
+| :----------------: | ------------------------------------------ | :-------: |
+| TELEGRAM_CHAT_LIST | List of chat keys to send notifications to |    `,`    |
+|  TELEGRAM_BOT_KEY  | Bot API  Keys to send notifications to     |     -     |
 
 ### License
 

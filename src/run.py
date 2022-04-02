@@ -7,13 +7,10 @@ from checker import CheckerIP, docker_log
 
 def main():
 
-    sender_email = os.environ.get('EMAIL_HOST_USER')
-    sender_email_pass = os.environ.get('EMAIL_HOST_PASSWORD')
-    telegram_bot_token = os.environ.get('TELEGRAM_BOT_KEY')
-    mail_list = os.environ.get('MAIL_LIST').split(',')
-    telegram_list = os.environ.get('TELEGRAM_CHAT_LIST').split(',')
+    telegram_bot_token = os.getenv('TELEGRAM_BOT_KEY')
+    telegram_list = os.getenv('TELEGRAM_CHAT_LIST', 'None').split(',')
 
-    checker = CheckerIP(sender_email, sender_email_pass, telegram_bot_token, mail_list, telegram_list)
+    checker = CheckerIP(telegram_bot_token, telegram_list)
 
     old_ip = checker.read_ip()
     new_ip = checker.get_ip()
@@ -28,7 +25,7 @@ def main():
         old_ip = new_ip
         new_ip = checker.get_ip()
 
-        docker_log('ITERATED')
+        # docker_log('ITERATED')
 
         sleep(60)
 
