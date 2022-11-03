@@ -12,6 +12,10 @@ def main():
 
     checker = CheckerIP(telegram_bot_token, telegram_list)
 
+    if not os.path.isfile('./last_ip.txt'):
+        with open('./last_ip.txt', 'w') as f:
+            pass
+    
     old_ip = checker.read_ip()
     new_ip = checker.get_ip()
 
